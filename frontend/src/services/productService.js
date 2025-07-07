@@ -1,5 +1,10 @@
 export async function fetchProducts(params = {}) {
-  const query = new URLSearchParams(params).toString();
+  const query = new URLSearchParams({
+    popMin: params.popMin ?? 0,
+    popMax: params.popMax ?? 1,
+    priceMin: params.priceMin ?? 0,
+    priceMax: params.priceMax ?? 1000
+  }).toString();
   let res;
   try {
     res = await fetch(`/api/products${query ? `?${query}` : ''}`);
