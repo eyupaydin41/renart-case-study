@@ -20,6 +20,6 @@ export async function fetchProducts(params = {}) {
     const error = new Error(message);
     error.status = res.status;
     throw error;
-  }x
+  }
   return res.json();
 }
