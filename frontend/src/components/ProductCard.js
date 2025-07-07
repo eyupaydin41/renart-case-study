@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
   }, [product]);
 
   const priceStr = `$${product.price.toFixed(2)} USD`;
-  const rating = (product.popularityScore * 5).toFixed(1);
+  const rating = Math.round(product.popularityScore * 5 * 10) / 10;
 
   return (
     <div className="product-card">
