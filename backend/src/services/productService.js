@@ -16,20 +16,11 @@ function filterByPrice(min, max) {
   return p => p.price >= min && p.price <= max;
 }
 
-export async function getAllProducts() {
+export async function getAllProducts({ popMin = 0, popMax = 1, priceMin = 0, priceMax = Number.MAX_SAFE_INTEGER }) {
   const goldPrice = await getGoldPrice();
-  const products = await findAll();
-  return enrichProducts(products, goldPrice);
-}
 
-export async function getProductsByPopularityScoreBetween({ min = 0, max = 1 } = {}) {
-  const goldPrice = await getGoldPrice();
-  const products = await findByPopularityScoreBetween(min, max);
-  return enrichProducts(products, goldPrice);
-}
+  const filteredByPopularity = await findByPopularityScoreBetween(popMin, popMax);
+  const enriched = enrichProducts(filteredByPopularity, goldPrice);
 
-export async function getProductsByPriceBetween({ min = 0, max = Number.MAX_SAFE_INTEGER } = {}) {
-  const goldPrice = await getGoldPrice();
-  const enriched = enrichProducts(await findAll(), goldPrice);
-  return enriched.filter(filterByPrice(min, max));
+  return enriched.filter(filterByPrice(priceMin, priceMax));
 }
