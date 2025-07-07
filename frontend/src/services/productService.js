@@ -7,7 +7,7 @@ export async function fetchProducts(params = {}) {
   }).toString();
   let res;
   try {
-    res = await fetch(`/api/products${query ? `?${query}` : ''}`);
+    res = await fetch(`https://renart-case-study-server.onrender.com/api/products${query ? `?${query}` : ''}`);
   } catch (err) {
     throw new Error('Sunucuya ulaşılamıyor. Lütfen internet bağlantınızı ve sunucunun çalıştığını kontrol edin.');
   }
@@ -20,6 +20,6 @@ export async function fetchProducts(params = {}) {
     const error = new Error(message);
     error.status = res.status;
     throw error;
-  }
+  }x
   return res.json();
 }
